@@ -9,6 +9,7 @@ class TestSimulator(TestCase):
     def setUp(self):
         self.sim = Simulator()
 
+
     def test_update(self):
         """
         Tests that the update functions returns an object of World type.
@@ -44,3 +45,4 @@ class TestSimulator(TestCase):
         self.sim.set_world(world)
         self.assertIsInstance(self.sim.get_world(), World)
         self.assertIs(self.sim.get_world(), world)
+
