@@ -1,5 +1,6 @@
 from unittest import TestCase
 from Simulator import *
+import random
 
 class TestRules(TestCase):
 
@@ -17,14 +18,24 @@ class TestRules(TestCase):
 
 
     def test_exposure(self):
-        x, y = 4, 4
-        # TODO code die zoekt naar levende cellen
-        neighbours = self.world.get_neighbours(x, y)
-        if neighbours.count(1) < 2:
-            prev_value = self.world.get(x, y)
-            self.sim.update
-            new_value = self.world.get(x, y)
-            self.assertNotEqual(prev_value, new_value)
+        """
+        Test for exposure rule. 
+        Exposure rule: any alive cell with less than 1 alive neighbour cells dies
+        """
+        # get world info
+        width = self.world.width
+        height = self.world.height
+
+        while True:
+            x, y = random.randint(0, width), random.randint(0, height) # get random x and y in range of board
+
+            neighbours = self.world.get_neighbours(x, y)   # find neighbours of cell at x, y
+            if neighbours.count(1) < 2:                    # check if cell has less than 2 alive nieghbours
+                prev_value = self.world.get(x, y)          # get state of cell at x, y
+                self.sim.update                            # update world
+                new_value = self.world.get(x, y)           # get new state of cell at x, y
+                self.assertNotEqual(prev_value, new_value) # check if cell changed from alive (1) to dead (0)
+                break
 
 
     def test_overcrowding(self):
