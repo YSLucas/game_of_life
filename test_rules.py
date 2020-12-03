@@ -15,36 +15,44 @@ class TestRules(TestCase):
     def test_dead(self):
         pass
 
-    def test_cell_dies(self):
-
-        pass
 
     def test_exposure(self):
         x, y = 4, 4
-        value = self.world.get(x, y)
+        # TODO code die zoekt naar levende cellen
         neighbours = self.world.get_neighbours(x, y)
         if neighbours.count(1) < 2:
-            self.assertEqual(value, 0)
-        else:
-            self.assertEqual(value, 1)
+            prev_value = self.world.get(x, y)
+            self.sim.update
+            new_value = self.world.get(x, y)
+            self.assertNotEqual(prev_value, new_value)
+
 
     def test_overcrowding(self):
         x, y = 4, 4
-        value = self.world.get(x, y)
+        # TODO code die zoekt naar levende cellen
         neighbours = self.world.get_neighbours(x, y)
         if neighbours.count(1) > 3:
-            self.assertEqual(value, 0)
-        else:
-            self.assertEqual(value, 1)
+            prev_value = self.world.get(x, y)
+            self.sim.update
+            new_value = self.world.get(x, y)
+            self.assertNotEqual(prev_value, new_value)
+            
 
     def test_survival(self):
         x, y = 1, 1
-        self.world.set(x, y, 1)
-        value = self.world.get(x, y)
+        # TODO: code die zoekt naar levende cel met 2 of 3 buren
+
+        prev_value = self.world.get(x, y)
         self.sim.update()
         new_value = self.world.get(x, y)
-        self.assertEqual(value, new_value)
+        self.assertEqual(prev_value, new_value) # previous value en new value blijven hetzelfde (=1)
 
 
     def test_birth(self):
-        pass
+        x, y, = 1, 1
+        # TODO: code die zoekt naar dode een cel met 3 levende buren
+
+        prev_value = self.world.get(x, y)
+        self.sim.update()
+        new_value = self.world.get(x, y)
+        self.assertNotEqual(prev_value, new_value) # check of previous value van 0 (dood) naar 1 (levend) gaat
