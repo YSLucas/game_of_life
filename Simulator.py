@@ -46,6 +46,8 @@ class Simulator:
                 # rule 4
                 elif not cell_state and neighbours == 3:
                     self.world.set(x, y, 1)
+                else:
+                    continue
 
 
         self.generation += 1
