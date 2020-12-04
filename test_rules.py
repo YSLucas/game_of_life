@@ -1,5 +1,6 @@
 from unittest import TestCase
 from Simulator import *
+from World import *
 import random
 
 
@@ -113,5 +114,6 @@ class TestRules(TestCase):
         """
 
         self.test_ruleset(4, 0, 3) # test rule 4 with 3 neighbours alive
+
 
 
