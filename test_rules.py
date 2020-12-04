@@ -40,11 +40,14 @@ class TestRules(TestCase):
 
         if prev_value == None:
             print('No alive cell found') # raise error
+            self.assertEqual(prev_value, 0)
         else:
             self.sim.update                            
             new_value = self.world.get(x, y)          
             self.assertNotEqual(prev_value, new_value)
 
+
+        # Eerste versie van test. Maar deze test stopt niet voordat het een cel heeft gevonden die voldoet. Kan errors veroorzaken.
         # while True:
         #     x, y = random.randint(0, width), random.randint(0, height) # get random x and y in range of board
         #     prev_value = self.world.get(x, y)
@@ -81,6 +84,7 @@ class TestRules(TestCase):
 
         if prev_value == None:
             print('No alive cell found') # raise error
+            self.assertEqual(prev_value, 0)
         else:
             self.sim.update                            
             new_value = self.world.get(x, y)          
@@ -110,6 +114,7 @@ class TestRules(TestCase):
 
         if prev_value == None:
             print('No alive cell found') # raise error
+            self.assertEqual(prev_value, 0)
         else:
             self.sim.update                            
             new_value = self.world.get(x, y)          
@@ -139,7 +144,8 @@ class TestRules(TestCase):
             break
 
         if prev_value == None:
-            print('No alive cell found') # raise error
+            print('No dead cell found') # raise error
+            self.assertEqual(prev_value, 0)
         else:
             self.sim.update                            
             new_value = self.world.get(x, y)          

@@ -1,4 +1,5 @@
 from World import *
+import copy
 
 class Simulator:
     """
@@ -24,9 +25,31 @@ class Simulator:
 
         :return: New state of the world.
         """
+        width = self.world.width
+        height = self.world.height
+
+        prev_state_world = copy.copy(self.world)
+        for x in range(0, width):
+            for y in range(0, height):
+                cell_state = prev_state_world.get(x, y)
+                neighbours = prev_state_world.get_neighbours(x, y).count(1)
+                
+                # rule 1
+                if cell_state and neighbours < 2:
+                    self.world.set(x, y, 0)
+                # rule 2
+                elif cell_state and neighbours > 3:
+                    self.world.set(x, y, 0)
+                # rule 3
+                elif cell_state and 1 < neighbours < 4:
+                    self.world.set(x, y, 1)
+                # rule 4
+                elif not cell_state and neighbours == 3:
+                    self.world.set(x, y, 1)
+
+
         self.generation += 1
 
-        #TODO: Do something to evolve the generation
 
         return self.world
 
