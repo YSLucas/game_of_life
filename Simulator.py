@@ -28,7 +28,7 @@ class Simulator:
         width = self.world.width
         height = self.world.height
 
-        prev_state_world = copy.copy(self.world)
+        prev_state_world = copy.deepcopy(self.world)
         for x in range(0, width):
             for y in range(0, height):
                 cell_state = prev_state_world.get(x, y)
@@ -46,8 +46,6 @@ class Simulator:
                 # rule 4
                 elif not cell_state and neighbours == 3:
                     self.world.set(x, y, 1)
-                else:
-                    continue
 
 
         self.generation += 1

@@ -32,9 +32,9 @@ class TestRules(TestCase):
 
 
         prev_value = self.world.get(x, y)          # get current state of cell
-        self.sim.set_world(self.world)
+        # self.sim.set_world(self.world)
         self.sim.update()                          # update world once
-        self.world = self.sim.get_world()
+        # self.world = self.sim.get_world()
         new_value = self.world.get(x, y)           # get new state of cell
 
         self.assertNotEqual(prev_value, new_value) # check if cell state changed from alive (1) to dead (0)
@@ -88,10 +88,10 @@ class TestRules(TestCase):
         self.world.set(5, 5, 0)
 
         prev_value = self.world.get(x, y)          # get current state of cell
-        self.sim.set_world(self.world)
+        # self.sim.set_world(self.world)
         self.sim.update()                          # update world once
         new_value = self.world.get(x, y)           # get new state of cell
-        self.world = self.sim.get_world()
+        # self.world = self.sim.get_world()
         self.assertNotEqual(prev_value, new_value) # check if cell state changed from alive (1) to dead (0)
 
     def test_survival(self):
@@ -114,9 +114,9 @@ class TestRules(TestCase):
         self.world.set(5, 5, 0)
 
         prev_value = self.world.get(x, y)          # get current state of cell
-        self.sim.set_world(self.world)
+        # self.sim.set_world(self.world)
         self.sim.update()                          # update world once
-        self.world = self.sim.get_world()
+        # self.world = self.sim.get_world()
         new_value = self.world.get(x, y)           # get new state of cell
 
         self.assertEqual(prev_value, new_value)    # check if cell state stayed alive (1)
@@ -142,9 +142,9 @@ class TestRules(TestCase):
         self.world.set(5, 5, 0)
         
         prev_value = self.world.get(x, y)          # get current state of cell
-        self.sim.set_world(self.world)
-        self.sim.update()                          # update world once
-        self.world = self.sim.get_world()
+        # self.sim.set_world(self.world)             # set sim world
+        self.sim.update()                          # update sim world once
+        # self.world = self.sim.get_world()          # get world after sim
         new_value = self.world.get(x, y)           # get new state of cell
 
         self.assertNotEqual(prev_value, new_value) # check if cell state changed from dead (0) to alive (1)
