@@ -40,10 +40,10 @@ class Simulator:
         width = self.world.width
         height = self.world.height
 
-        prev_state_world = copy.deepcopy(self.world)
-        for x in range(0, width):
-            for y in range(0, height):
-                cell_state = prev_state_world.get(x, y)
+        prev_state_world = copy.deepcopy(self.world) # maak copy van world om de initiele staat van de wereld te bewaren terwijl je de wereld aanpast
+        for x in range(0, width + 1):
+            for y in range(0, height + 1):
+                cell_state = prev_state_world.get(x, y) 
                 neighbours = prev_state_world.get_neighbours(x, y).count(1)
                 
                 # rule 1

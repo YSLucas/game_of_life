@@ -26,11 +26,11 @@ class TestRules(TestCase):
             for y_minmax in range(y - 1, y + 2):
                 
                 if (x_minmax, y_minmax) == (x, y):
-                    self.world.set(x, y, set_state)
+                    self.world.set(x, y, set_state) # middle cel (x, y) krijgt de juiste  meegegeven staat (0 of 1)
                     continue
 
                 elif alive_neighbours != 0:
-                    self.world.set(x_minmax, y_minmax, 1)
+                    self.world.set(x_minmax, y_minmax, 1) # zolang er nog levende neighbours toegevoegd moeten worden wordt deze code uitgevoerd
                     alive_neighbours -= 1
                 else:
                     self.world.set(x_minmax, y_minmax, 0)
