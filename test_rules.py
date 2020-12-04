@@ -36,7 +36,6 @@ class TestRules(TestCase):
                     self.world.set(x_minmax, y_minmax, 0)
         
 
-        
         prev_value = self.world.get(x, y)          # get current state of cell
         
         self.sim.set_world(self.world)             # set sim world
@@ -48,7 +47,6 @@ class TestRules(TestCase):
         return [prev_value, new_value]             # return result (daadwerkelijke tests worden in de bijbehorende functie zelf uitgevoerd)
 
 
-
     def test_exposure(self):
         """
         Test for exposure rule. 
@@ -58,34 +56,6 @@ class TestRules(TestCase):
         for n in range(0, 2):
             result = self.test_ruleset(1, n)
             self.assertNotEqual(result[0], result[1])
-
-
-        # Deze versie kan werken maar dan moet de test tijdens de simulatie worden uitgevoerd.
-        # get world info
-        # width = self.world.width
-        # height = self.world.height
-        # x, y = None, None
-        # prev_value = None
-
-        # for search_x in range(0, width + 1):
-        #     for search_y in range(0, height + 1):
-
-        #         cell_state = self.world.get(search_x, search_y)
-        #         neighbours = self.world.get_neighbours(search_x, search_y)
-
-        #         if prev_value and ( neighbours.count(1) < 2 ):
-        #             x, y, prev_value = search_x, search_y, cell_state
-        #             break
-        #     break
-
-        # if prev_value == None:
-        #     print('No alive cell found') # raise error
-        #     self.assertEqual(prev_value, 0)
-        # else:
-        #     self.sim.update                            
-        #     new_value = self.world.get(x, y)          
-        #     self.assertNotEqual(prev_value, new_value)
-
 
 
     def test_overcrowding(self):
@@ -108,7 +78,6 @@ class TestRules(TestCase):
         for n in range(2, 4):
             result = self.test_ruleset(1, n)
             self.assertEqual(result[0], result[1])
-
 
 
     def test_birth(self):
