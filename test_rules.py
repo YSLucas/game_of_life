@@ -12,7 +12,13 @@ class TestRules(TestCase):
         self.sim = Simulator(world=World(self.width, self.height))
         self.world = self.sim.get_world()
 
-    def test_ruleset(self, rule, set_state, alive_neighbours):
+    def test_ruleset(self, set_state, alive_neighbours):
+        """
+        Deze functie wordt bij iedere test uitgevoerd om de verandering van een cel na éém stap in de sumulatie terug te geven.
+        Deze functie is dynamisch, dus kan voor elke test gebruikt worden zolang de juiste parameters worden meegegeven.
+
+        (deze functie kan misschien beter buiten deze class staan)
+        """
         x, y = 4, 4
 
         # set neighbours and middle cell
@@ -39,11 +45,8 @@ class TestRules(TestCase):
 
         new_value = self.world.get(x, y)           # get new state of cell
         
-        # do test
-        if rule in [1, 2, 4]:
-            self.assertNotEqual(prev_value, new_value)
-        else:
-            self.assertEqual(prev_value, new_value)
+        return [prev_value, new_value]             # return result (daadwerkelijke tests worden in de bijbehorende functie zelf uitgevoerd)
+
 
 
     def test_exposure(self):
@@ -51,9 +54,10 @@ class TestRules(TestCase):
         Test for exposure rule. 
         Exposure rule: any alive cell with less than 2 alive neighbour cells dies
         """
-        
-        self.test_ruleset(1, 1, 1) # test rule 1 with 1 neigbour alive
-        self.test_ruleset(1, 1, 0) # test rule 1 with 0 neighbours alive
+
+        for n in range(0, 2):
+            result = self.test_ruleset(1, n)
+            self.assertNotEqual(result[0], result[1])
 
 
         # Deze versie kan werken maar dan moet de test tijdens de simulatie worden uitgevoerd.
@@ -87,14 +91,12 @@ class TestRules(TestCase):
     def test_overcrowding(self):
         """
         Test for overcrowding rule. 
-        Overcrowding rule: any alive cell with more than 3 alive neighbour cells dies
+        Overcrowding rule: any alive cell with more than 3 (max 8) alive neighbour cells dies
         """
 
-        self.test_ruleset(2, 1, 4) # test rule 2 with 4 neighbours alive
-        self.test_ruleset(2, 1, 5) # test rule 2 with 5 neighbours alive
-        self.test_ruleset(2, 1, 6) # test rule 2 with 6 neighbours alive
-        self.test_ruleset(2, 1, 7) # test rule 2 with 7 neighbours alive
-        self.test_ruleset(2, 1, 8) # test rule 2 with 8 neighbours alive
+        for n in range(4, 9):
+            result = self.test_ruleset(1, n)
+            self.assertNotEqual(result[0], result[1])
 
 
     def test_survival(self):
@@ -103,8 +105,10 @@ class TestRules(TestCase):
         Survival rule: any alive cell with 2 or 3 neighbours stays alive
         """
 
-        self.test_ruleset(3, 1, 2) # test rule 3 with 2 neighbours alive
-        self.test_ruleset(3, 1, 3) # test rule 3 with 3 neighbours alive
+        for n in range(2, 4):
+            result = self.test_ruleset(1, n)
+            self.assertEqual(result[0], result[1])
+
 
 
     def test_birth(self):
@@ -113,7 +117,9 @@ class TestRules(TestCase):
         Birth rule: any dead cell with exaxtly 3 nieghbours becomes alive
         """
 
-        self.test_ruleset(4, 0, 3) # test rule 4 with 3 neighbours alive
+        result = self.test_ruleset(0, 3)
+        self.assertNotEqual(result[0], result[1])
+
 
 
 
